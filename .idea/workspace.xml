@@ -4,10 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="7995af72-d2bd-4851-9699-cf086d40c494" name="Changes" comment="add flask">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
-    </list>
+    <list default="true" id="7995af72-d2bd-4851-9699-cf086d40c494" name="Changes" comment="added a base html page" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -100,11 +97,20 @@
       <option name="project" value="LOCAL" />
       <updated>1712578911161</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="added a base html page">
+      <option name="closed" value="true" />
+      <created>1712583018042</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1712583018042</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="add flask" />
-    <option name="LAST_COMMIT_MESSAGE" value="add flask" />
+    <MESSAGE value="added a base html page" />
+    <option name="LAST_COMMIT_MESSAGE" value="added a base html page" />
   </component>
 </project>
