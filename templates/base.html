@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="../static/header.css">
+    <title>Title</title>
+</head>
+  <body>
+    <header>
+      <div class="topBar">
+        <div class="">
+          <ul class="barItem">
+
+            <li><a href="/">Home</a></li>
+            <li><a href="/accounts">Other Accounts</a></li>
+            <li><a href="/create_test">Create</a></li>
+            <li><a href="/edit">Edit</a></li>
+            <li><a href="/delete">Delete</a></li>
+            <li><a href="/all_tests">Tests</a></li>
+          </ul>
+        </div>
+
+        <div class="formSection barItem">
+          <form class="barItem" action="" method="post">
+            <input type="text" name="uid" value="" placeholder="E-mail" required>
+            <input type="password" name="pass" value="" placeholder="Password" required>
+            <input type="submit" name="loginButton" value="LOGIN">
+          </form>
+
+          <button class="barItem input" style="margin-left:10px;">
+            <a href="">Signup</a>
+          </button>
+        </div>
+
+      </div>
+    </header>
+
+    {% block body %}
+    {% endblock %}
+

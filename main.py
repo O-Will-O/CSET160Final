@@ -5,7 +5,7 @@ from sqlalchemy import create_engine, text
 app = Flask(__name__)
 
 # connection string is in the format mysql://user:password@server/database
-conn_str = "mysql://root:Ilikegames05!@localhost/160Final"
+conn_str = "mysql://root:cyber241@localhost/160final"
 engine = create_engine(conn_str, echo=True)
 conn = engine.connect()
 
