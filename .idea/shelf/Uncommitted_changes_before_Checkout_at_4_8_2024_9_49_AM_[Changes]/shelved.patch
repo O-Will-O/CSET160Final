@@ -1,0 +1,19 @@
+Index: main.py
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>from flask import Flask, render_template, request\r\nfrom sqlalchemy import create_engine, text\r\n\r\n\r\napp = Flask(__name__)\r\n\r\n# connection string is in the format mysql://user:password@server/database\r\nconn_str = \"mysql://root:Ilikegames05!@localhost/160Final\"\r\nengine = create_engine(conn_str, echo=True)\r\nconn = engine.connect()\r\n\r\n\r\nif __name__ == '__main__':\r\n    app.run(debug=True)\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/main.py b/main.py
+--- a/main.py	(revision 7d4805c487ee89f14c39493052de49701954130f)
++++ b/main.py	(date 1712584131491)
+@@ -5,7 +5,7 @@
+ app = Flask(__name__)
+ 
+ # connection string is in the format mysql://user:password@server/database
+-conn_str = "mysql://root:Ilikegames05!@localhost/160Final"
++conn_str = "mysql://root:cyber241@localhost/160final"
+ engine = create_engine(conn_str, echo=True)
+ conn = engine.connect()
+ 
