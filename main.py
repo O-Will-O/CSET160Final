@@ -23,9 +23,6 @@ def selectTest():
 @app.route('/<Test>')
 def take(Test):
     testsques = conn.execute(text(f"select questions from StoredTests where TestID = '{Test}';")).all()
-    print(testsques[0][0])
-    queslist = []
-
     return render_template("TakeTest.html", testq=testsques)
 
 if __name__ == '__main__':
