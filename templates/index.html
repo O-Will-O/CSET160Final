@@ -30,4 +30,8 @@
 {% extends 'base.html' %}
 {% block body %}
 <h1>This is a test</h1>
+<h1 class="bottom">
+                     Hi {{session.username}}!!</br></br> Welcome to the index page...
+                </h1></br></br></br>
+                <a href="{{ url_for('logout') }}" class="btn">Logout</a>
 {% endblock %}
