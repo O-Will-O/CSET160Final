@@ -20,10 +20,16 @@ def selectTest():
     print(testslist)
     return render_template("TestSelect.html", tests=testslist)
 
-@app.route('/<Test>')
+@app.route('/<Test>', methods=['GET'])
 def take(Test):
+    if request.path.endswith('.ico'):  # Filter out requests for favicon.ico
+        return "Resource Not Found", 404
     testsques = conn.execute(text(f"select questions from StoredTests where TestID = '{Test}';")).all()
-    return render_template("TakeTest.html", testq=testsques)
+    testsques = testsques[0]
+    removeComma = testsques[0][:-1]
+    split_list = removeComma[0::].split(';')
+    print(split_list)
+    return render_template("TakeTest.html", testq=split_list)
 
 if __name__ == '__main__':
     app.run(debug=True)
