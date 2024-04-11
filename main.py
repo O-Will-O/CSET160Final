@@ -84,6 +84,29 @@ def get_boats():
     print(people)
     return render_template("all_users.html", user_info=people[0:10])
 
+@app.route('/testselect')
+def selectTest():
+    testslist = conn.execute(text("select testID, TeacherID, name from StoredTests natural join teacher;")).all()
+    print(testslist)
+    return render_template("TestSelect.html", tests=testslist)
+
+@app.route('/<Test>', methods=['GET'])
+def take(Test):
+    if request.path.endswith('.ico'):  # Filter out requests for favicon.ico
+        return "Resource Not Found", 404
+    testsques = conn.execute(text(f"select questions from StoredTests where TestID = '{Test}';")).all()
+    testsques = testsques[0]
+    removeComma = testsques[0][:-1]
+    split_list = removeComma[0::].split(';')
+    print(split_list)
+    return render_template("TakeTest.html", testq=split_list, Test=Test)
+
+@app.route('/<Test>', methods=['POST'])
+def post(Test):
+    conn.execute(text("INSERT INTO FinishedTests (responses) VALUES (:Ques)"), request.form)
+    conn.commit()
+    return render_template('TestSelect.html')
+
 
 if __name__ == '__main__':
     app.run(debug=True)
