@@ -1,10 +1,10 @@
 {% extends 'base.html' %}
 {% block body %}
 <h1>This is a test</h1>
-<form action="/TestSelect" method="post">
+<form action="/{{Test}}" method="post">
     {% for i in testq %}
-    <label for=f"{(i[0::].split(':'))[0]}">{{ i }}</label>
-    <input type="text" id=f"{(i[0::].split(':'))[0]}">
+    <label for="">{{ i }}</label>
+    <input type="text" name="Ques">
     <br>bn
     {% endfor %}
 
