@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+{% block body %}
+<h1>Test Selection</h1>
+    {% for i in tests %}
+        <div>
+            <h4>TestID: {{i[0]}}</h4>
+            <h4>TeacherName: {{i[2]}}</h4>
+            <button><a href="/{{ i[0] }}" >Select This Test</a></button>
+        </div>
+<br>
+    {% endfor %}
+
+{% endblock %}

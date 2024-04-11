@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+{% block body %}
+<h1>This is a test</h1>
+<form action="/TestSelect" method="post">
+    {% for i in testq %}
+    <label for=f"{(i[0::].split(':'))[0]}">{{ i }}</label>
+    <input type="text" id=f"{(i[0::].split(':'))[0]}">
+    <br>bn
+    {% endfor %}
+
+    <button type="submit">Submit</button>
+</form>
+{% endblock %}
