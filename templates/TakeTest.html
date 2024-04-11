@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+{% block body %}
+<h1>This is a test</h1>
+<form action="/{{Test}}" method="post">
+    {% for i in testq %}
+    <label for="">{{ i }}</label>
+    <input type="text" name="Ques">
+    <br>bn
+    {% endfor %}
+
+    <button type="submit">Submit</button>
+</form>
+{% endblock %}
