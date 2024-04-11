@@ -27,11 +27,17 @@
       background-color: #45a049;
     }
 </style>
-{% extends 'base.html' %}
+
 {% block body %}
-<h1>This is a test</h1>
-<h1 class="bottom">
-                     Hi {{session.username}}!!</br></br> Welcome to the index page...
-                </h1></br></br></br>
-                <a href="{{ url_for('logout') }}" class="btn">Logout</a>
+
+    <div class="body">
+
+        <form action="/signup" method="POST">
+            <input type="number" name="user_id" placeholder="UserID" class="input_field"> <br>
+            <input type="text" name="username" placeholder="Username" class="input_field"> <br>
+            <input type="text" name="password" placeholder="Password" class="input_field"> <br>
+            <input type="text" name="email" placeholder="Email Address" class="input_field"> <br>
+            <input type="submit" value="Submit" class="input_submit">
+        </form>
+    </div>
 {% endblock %}
