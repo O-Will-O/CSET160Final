@@ -10,6 +10,8 @@ conn_str = "mysql://root:cyber241@localhost/160final"
 engine = create_engine(conn_str, echo=True)
 conn = engine.connect()
 
+app.secret_key = 'cyber241'
+
 app.config['MYSQL_HOST'] = 'localhost'
 app.config['MYSQL_USER'] = 'root'
 app.config['MYSQL_PASSWORD'] = 'cyber241'
@@ -25,21 +27,22 @@ def index():
 @app.route('/login', methods =['GET', 'POST'])
 def login():
     msg = ''
-    if request.method == 'POST' and 'username' in request.form and 'password' in request.form and 'email' in request.form :
+    if request.method == 'POST' and 'username' in request.form and 'password' in request.form:
         username = request.form['username']
         password = request.form['password']
+        print(username, password)
         cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
-        cursor.execute('SELECT * FROM User WHERE username = %s AND password = %s', (username, password,))
+        cursor.execute('SELECT * FROM User WHERE username = % s AND password = % s', (username, password,))
         account = cursor.fetchone()
         if account:
             session['loggedin'] = True
             session['UserID'] = account['UserID']
             session['username'] = account['username']
             msg = 'Login success!'
-            return render_template('index.html', msg = msg)
+            return render_template('index.html', msg=msg)
         else:
             msg = 'Wrong username or password'
-    return render_template('login.html', msg = msg)
+    return render_template('login.html', msg=msg)
 
 @app.route('/logout')
 def logout():
@@ -70,9 +73,17 @@ def signup():
             cursor.execute('INSERT INTO User VALUES (NULL, % s, % s, % s)', (username, password, email, ))
             mysql.connection.commit()
             msg = 'Successfully registered!'
+            return render_template('login.html', msg=msg)
     elif request.method == 'POST':
         msg = 'Please fill out the form'
-    return render_template('signup.html', msg = msg)
+    return render_template('signup.html', msg=msg)
+
+@app.route('/all_users')
+def get_boats():
+    people = conn.execute(text("select UserID, username, email from User")).all()
+    print(people)
+    return render_template("all_users.html", user_info=people[0:10])
+
 
 if __name__ == '__main__':
     app.run(debug=True)
