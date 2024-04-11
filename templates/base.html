@@ -12,7 +12,7 @@
           <ul class="barItem">
 
             <li><a href="/">Home</a></li>
-            <li><a href="/accounts">Other Accounts</a></li>
+            <li><a href="/all_users">Other Accounts</a></li>
             <li><a href="/create_test">Create</a></li>
             <li><a href="/edit">Edit</a></li>
             <li><a href="/delete">Delete</a></li>
@@ -20,15 +20,9 @@
           </ul>
         </div>
 
-        <div class="formSection barItem">
-          <form class="barItem" action="" method="post">
-            <input type="text" name="uid" value="" placeholder="E-mail" required>
-            <input type="password" name="pass" value="" placeholder="Password" required>
-            <input type="submit" name="loginButton" value="LOGIN">
-          </form>
 
           <button class="barItem input" style="margin-left:10px;">
-            <a href="">Signup</a>
+            <a href="{{ url_for('logout') }}" class="btn">Logout</a>
           </button>
         </div>
 

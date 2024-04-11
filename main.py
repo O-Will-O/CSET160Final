@@ -1,13 +1,16 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, redirect, url_for, session
 from sqlalchemy import create_engine, text
-
+from flask_mysqldb import MySQL
+import MySQLdb.cursors
+import re
 app = Flask(__name__)
 
 # connection string is in the format mysql://user:password@server/database
-conn_str = "mysql://root:Ilikegames05!@localhost/160final"
+conn_str = "mysql://root:cyber241@localhost/160final"
 engine = create_engine(conn_str, echo=True)
 conn = engine.connect()
 
+app.secret_key = 'cyber241'
 
 app.config['MYSQL_HOST'] = 'localhost'
 app.config['MYSQL_USER'] = 'root'
@@ -21,49 +24,32 @@ mysql = MySQL(app)
 def index():
     return render_template("index.html")
 
-
 @app.route('/login', methods =['GET', 'POST'])
 def login():
     msg = ''
-    if request.method == 'POST' and 'username' in request.form and 'password' in request.form and 'email' in request.form :
+    if request.method == 'POST' and 'username' in request.form and 'password' in request.form:
         username = request.form['username']
         password = request.form['password']
+        print(username, password)
         cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
-        cursor.execute('SELECT * FROM User WHERE username = %s AND password = %s', (username, password,))
+        cursor.execute('SELECT * FROM User WHERE username = % s AND password = % s', (username, password,))
         account = cursor.fetchone()
         if account:
             session['loggedin'] = True
             session['UserID'] = account['UserID']
             session['username'] = account['username']
             msg = 'Login success!'
-            return render_template('index.html', msg = msg)
+            return render_template('index.html', msg=msg)
         else:
             msg = 'Wrong username or password'
-    return render_template('login.html', msg = msg)
+    return render_template('login.html', msg=msg)
 
-
-@app.route('/testselect')
-def selectTest():
-    testslist = conn.execute(text("select testID, TeacherID, name from StoredTests natural join teacher;")).all()
-    print(testslist)
-    return render_template("TestSelect.html", tests=testslist)
-
-@app.route('/<Test>', methods=['GET'])
-def take(Test):
-    if request.path.endswith('.ico'):  # Filter out requests for favicon.ico
-        return "Resource Not Found", 404
-    testsques = conn.execute(text(f"select questions from StoredTests where TestID = '{Test}';")).all()
-    testsques = testsques[0]
-    removeComma = testsques[0][:-1]
-    split_list = removeComma[0::].split(';')
-    print(split_list)
-    return render_template("TakeTest.html", testq=split_list, Test=Test)
-
-@app.route('/<Test>', methods=['POST'])
-def post(Test):
-    conn.execute(text("INSERT INTO FinishedTests (responses) VALUES (:Ques)"), request.form)
-    conn.commit()
-    return render_template('TestSelect.html')
+@app.route('/logout')
+def logout():
+    session.pop('loggedin', None)
+    session.pop('UserID', None)
+    session.pop('username', None)
+    return redirect(url_for('login'))
 
 @app.route('/signup', methods =['GET', 'POST'])
 def signup():
@@ -87,10 +73,18 @@ def signup():
             cursor.execute('INSERT INTO User VALUES (NULL, % s, % s, % s)', (username, password, email, ))
             mysql.connection.commit()
             msg = 'Successfully registered!'
+            return render_template('login.html', msg=msg)
     elif request.method == 'POST':
         msg = 'Please fill out the form'
-    return render_template('signup.html', msg = msg)
+    return render_template('signup.html', msg=msg)
+
+@app.route('/all_users')
+def get_boats():
+    people = conn.execute(text("select UserID, username, email from User")).all()
+    print(people)
+    return render_template("all_users.html", user_info=people[0:10])
 
 
 if __name__ == '__main__':
     app.run(debug=True)
+

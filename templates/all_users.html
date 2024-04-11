@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% block body %}
+    {% for i in user_info %}
+        <ul>
+            <li>UserID: {{i[0]}}</li>
+            <ul>
+                <li>Username: {{i[1]}}</li>
+                <li>Email: {{i[2]}}</li>
+            </ul>
+        </ul>
+    {% endfor %}
+{% endblock %}
