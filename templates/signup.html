@@ -32,12 +32,13 @@
 
     <div class="body">
 
-        <form action="/signup" method="POST">
-            <input type="number" name="user_id" placeholder="UserID" class="input_field"> <br>
-            <input type="text" name="username" placeholder="Username" class="input_field"> <br>
-            <input type="text" name="password" placeholder="Password" class="input_field"> <br>
-            <input type="text" name="email" placeholder="Email Address" class="input_field"> <br>
-            <input type="submit" value="Submit" class="input_submit">
-        </form>
+<form action="{{ url_for('signup') }}" method="post">
+    <div class="msg">{{ msg }}</div>
+    <input id="username" name="username" type="text" placeholder="Enter your username" class="textbox"/></br></br>
+    <input id="password" name="password" type="password" placeholder="Enter your password" class="textbox"/></br></br>
+    <input id="email" name="email" type="text" placeholder="Enter your email address" class="textbox"/></br></br>
+    <input type="submit" class="btn" value="Sign Up"></br>
+</form>
+        <p>Already have an account? <a href="/login"> Sign in here</a></p>
     </div>
 {% endblock %}
