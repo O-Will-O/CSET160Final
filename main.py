@@ -89,13 +89,11 @@ def signup():
         msg = 'Please fill out the form'
     return render_template('signup.html', msg=msg)
 
-
-
 @app.route('/all_users')
-def get_boats():
-    people = conn.execute(text("select UserID, username, email from User")).all()
+def get_accounts():
+    people = conn.execute(text("select UserID, username, email, account_type from User")).all()
     print(people)
-    return render_template("all_users.html", user_info=people[0:10])
+    return render_template("all_users.html", user_info=people[0:25])
 
 @app.route('/testselect')
 def selectTest():
