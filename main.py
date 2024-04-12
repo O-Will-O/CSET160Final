@@ -106,7 +106,41 @@ def post(Test):
     conn.execute(text("INSERT INTO FinishedTests (responses) VALUES (:Ques)"), request.form)
     conn.commit()
     return render_template('TestSelect.html')
-
+@app.route('/')
+def hello():
+    return render_template('base.html')
+@app.route('/teacherAccount', methods=['GET'])
+def teacher():
+    return render_template('account.html')
+@app.route('/teacherAccount', methods=['POST'])
+def teacherAcc():
+    conn.execute(text('Insert into teacher (TeacherID, name) Values (:TeacherID, :name)', request.form))
+    conn.commit()
+    return render_template('account.html')
+@app.route('/createTest', methods=['GET'])
+def create():
+    return render_template('create.html')
+@app.route('/createTest', methods=['POST'])
+def createTest():
+    conn.execute(text('INSERT INTO StoredTests (testID, TeacherID, questions) VALUES (:testID, :TeacherID, :questions)'), request.form)
+    conn.commit()
+    return render_template('create.html')
+@app.route('/editTest', methods=['GET'])
+def edit():
+    return render_template('edit.html')
+@app.route('/editTest', methods=['POST'])
+def editTest():
+    test_id = request.form['test_id']
+    new_questions = request.form['new_questions']
+    conn.execute(text('ALTER TABLE StoredTests SET questions = :new_questions WHERE testID = :test_id'), {"new_questions": new_questions, "test_id": test_id})
+    conn.commit()
+    return render_template('edit.html')
+@app.route('/deleteTest', methods=['GET'])
+def delete():
+    return render_template('delete.html')
+# @app.route('/deleteTest', methods=['POST'])
+# def deleteTest():
+#     conn.execute(text('Alter')
 
 if __name__ == '__main__':
     app.run(debug=True)
