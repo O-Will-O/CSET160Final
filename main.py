@@ -40,28 +40,34 @@ def login():
             session['loggedin'] = True
             session['UserID'] = account['UserID']
             session['username'] = account['username']
+            session['account_type'] = account['account_type']  # recent change
             msg = 'Login success!'
             return render_template('index.html', msg=msg)
         else:
             msg = 'Wrong username or password'
     return render_template('login.html', msg=msg)
 
+
 @app.route('/logout')
 def logout():
     session.pop('loggedin', None)
     session.pop('UserID', None)
     session.pop('username', None)
+    session.pop('account_type', None)  # Recent
     return redirect(url_for('login'))
+
+
 
 @app.route('/signup', methods =['GET', 'POST'])
 def signup():
     msg = ''
-    if request.method == 'POST' and 'username' in request.form and 'password' in request.form and 'email' in request.form :
+    if request.method == 'POST' and 'username' in request.form and 'password' in request.form:
         username = request.form['username']
         password = request.form['password']
         email = request.form['email']
+        account_type = request.form['account_type']  # Recent
         cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
-        cursor.execute('SELECT * FROM User WHERE username = % s', (username, ))
+        cursor.execute('SELECT * FROM User WHERE username = %s', (username,))
         account = cursor.fetchone()
         if account:
             msg = 'Account already exists'
@@ -72,13 +78,18 @@ def signup():
         elif not username or not password or not email:
             msg = 'Please fill out the form !'
         else:
-            cursor.execute('INSERT INTO User VALUES (NULL, % s, % s, % s)', (username, password, email, ))
+            cursor.execute('INSERT INTO User  (username, password, email, account_type) VALUES (%s, %s, %s, %s)', (username, password, email, account_type))
             mysql.connection.commit()
             msg = 'Successfully registered!'
+
+            session['account_type'] = account_type  # Recent
+
             return render_template('login.html', msg=msg)
     elif request.method == 'POST':
         msg = 'Please fill out the form'
     return render_template('signup.html', msg=msg)
+
+
 
 @app.route('/all_users')
 def get_boats():
