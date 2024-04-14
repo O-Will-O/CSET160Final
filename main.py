@@ -91,9 +91,19 @@ def signup():
 
 @app.route('/all_users')
 def get_accounts():
-    people = conn.execute(text("select UserID, username, email, account_type from User")).all()
+    account_type_filter = request.args.get('account_type')
+    if account_type_filter == 'teacher':
+        query = text("SELECT UserID, username, email, account_type FROM User WHERE account_type = 'teacher'")
+    elif account_type_filter == 'student':
+        query = text("SELECT UserID, username, email, account_type FROM User WHERE account_type = 'student'")
+    else:
+        query = text("SELECT UserID, username, email, account_type FROM User")
+
+    people = conn.execute(query).all()
     print(people)
-    return render_template("all_users.html", user_info=people[0:25])
+    return render_template("all_users.html", user_info=people[0:25], account_type_filter=account_type_filter)
+
+
 
 @app.route('/testselect')
 def selectTest():
