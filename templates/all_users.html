@@ -1,11 +1,20 @@
 {% extends "base.html" %}
 {% block body %}
+    <form action="/all_users" method="get">
+        <select name="account_type">
+            <option value="">All</option>
+            <option value="teacher" {% if account_type_filter =='teacher' %}selected{% endif %}>Teacher</option>
+            <option value="student" {% if account_type_filter =='student' %}selected{% endif %}>Student</option>
+        </select>
+        <button type="submit">Filter</button>
+    </form>
     {% for i in user_info %}
         <ul>
             <li>UserID: {{i[0]}}</li>
             <ul>
                 <li>Username: {{i[1]}}</li>
                 <li>Email: {{i[2]}}</li>
+                <li>Account Type: {{i[3]}}</li>
             </ul>
         </ul>
     {% endfor %}
