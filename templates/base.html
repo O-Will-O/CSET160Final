@@ -13,12 +13,18 @@
 
             <li><a href="/">Home</a></li>
             <li><a href="/all_users">Other Accounts</a></li>
-            <li><a href="/createTest">Create</a></li>
-            <li><a href="/editTest">Edit</a></li>
-            <li><a href="/deleteTest">Delete</a></li>
+            <li><a href="/create_test">Create</a></li>
+            <li><a href="/edit">Edit</a></li>
+            <li><a href="/delete">Delete</a></li>
             <li><a href="/all_tests">Tests</a></li>
           </ul>
+        </div>
 
+
+          <button class="barItem input" style="margin-left:10px;">
+            <a href="{{ url_for('logout') }}" class="btn">Logout</a>
+          </button>
+        </div>
 
       </div>
     </header>
