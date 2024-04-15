@@ -29,5 +29,14 @@
 </style>
 {% extends 'base.html' %}
 {% block body %}
-<h1>This is a test</h1>
+<h1>Create a test</h1>
+ <div class="body">
+
+        <form action="/createTest" method="POST">
+            <input type="number" name="id" placeholder="testID" class="input_field"> <br>
+            <input type="number" name="owner_id" placeholder="TeacherID" class="input_field"> <br>
+            <input type="text" name="type" placeholder="questions" class="input_field"> <br>
+            <input type="submit" class="btn" value="Create Test"></br></br>
+        </form>
+    </div>
 {% endblock %}
